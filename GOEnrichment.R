@@ -23,6 +23,7 @@
 
 #install.packages('devtools', repos = 'https://mirrors.tuna.tsinghua.edu.cn/CRAN')
 #install.packages('BiocManager', repos = 'https://mirrors.tuna.tsinghua.edu.cn/CRAN')
+#install.packages("cli")
 library('devtools')
 #BiocManager::install(version = "3.10")
 #Needed=c("bit", "formatR", "hms", "triebeard", "tweenr", "polyclip", "RcppEigen", "RcppArmadillo", "zlibbioc", "bit64", "blob", "plogr", "lambda.r", "futile.options", "progress", "urltools", "gridGraphics", "ggforce", "ggrepel", "viridis", "tidygraph", "graphlayouts", "bitops", "XVector", "IRanges", "RSQLite", "futile.logger", "snow", "data.table", "gridExtra", "fastmatch", "cowplot", "europepmc", "ggplotify", "ggraph", "ggridges", "igraph", "dplyr", "tidyselect", "RCurl", "Biostrings", "AnnotationDbi", "BiocParallel", "DO.db", "fgsea", "GOSemSim", "qvalue", "S4Vectors", "BiocGenerics", "graph", "Biobase", "GO.db", "SparseM", "matrixStats", "DBI", "enrichplot", "rvcheck", "tidyr", "org.Hs.eg.db", "KEGGgraph", "XML", "Rgraphviz", "png", "KEGGREST")
@@ -32,6 +33,9 @@ library('devtools')
 
 
 library(DOSE)
+#If you use DOSE in published research, please cite:
+#Guangchuang Yu, Li-Gen Wang, Guang-Rong Yan, Qing-Yu He. 
+#DOSE: an R/Bioconductor package for Disease Ontology Semantic and Enrichment analysis. Bioinformatics 2015, 31(4):608-609
 library(org.Hs.eg.db)
 library(topGO)
 library(clusterProfiler)
@@ -66,7 +70,6 @@ MyGeneIDSet = bitr(MyGeneSet,
 
 
 #Import genes from file
-setwd("/Users/zhsl/RTest/")
 MyGeneSet2 <- read.table("GeneNames",header=FALSE) #单列基因名文件
 MyGeneSet2$V1 <- as.character(MyGeneSet2$V1) 
 
@@ -96,6 +99,7 @@ ego_ALL <- enrichGO(gene = MyGeneIDSet2$ENTREZID,
                     pvalueCutoff = 1, 
                     qvalueCutoff = 1,
                     readable = TRUE)
+
 write.csv(summary(ego_ALL),"ALL-enrich.csv",row.names =FALSE)
 
 
